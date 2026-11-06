@@ -3,8 +3,6 @@ Dipo Olaleye
  Final Processing project
  TODO: Add brief descripton of final project here
  */
-
-
 int gameState = 0;
 float playerX;
 float playerY;
@@ -124,10 +122,22 @@ boolean isMouseOverButton() {
   return false;
 }
 
+boolean isMouseOverPlayAgainButton() {
+  if (mouseX >= 300 && mouseX <= 500 &&
+      mouseY >= 445 && mouseY <= 500) {
+    return true;
+  }
+
+  return false;
+}
 
 void mousePressed() {
   if (gameState == 0 && isMouseOverButton()) {
     gameState = 1;
+  }
+
+  else if (gameState == 2 && isMouseOverPlayAgainButton()) {
+    resetGame();
   }
 }
 
@@ -391,4 +401,33 @@ void drawGameOver() {
   fill(180);
   textSize(16);
   text("YOUR MISSION HAS ENDED", width / 2, height / 2 + 110);
+
+  
+  fill(60, 190, 255);
+  stroke(180, 230, 255);
+  strokeWeight(2);
+  rect(width / 2 - 100, height / 2 + 145, 200, 55, 12);
+
+  
+  noStroke();
+  fill(255);
+  textSize(22);
+  text("PLAY AGAIN", width / 2, height / 2 + 180);
+}
+
+void resetGame() {
+  playerX = width / 2;
+  playerY = height / 2;
+  playerHealth = 3;
+  score = 0;
+  enemySpawnTimer = 0;
+  
+  for (int i = 0; i < maxBullets; i++) {
+  bulletActive[i] = false;
+  }
+  
+  for (int j = 0; j < maxEnemies; j++) {
+  enemyActive[j] = false;
+  gameState = 1;
+  }
 }
